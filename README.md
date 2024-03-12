@@ -7,6 +7,6 @@ Commands:
 
 ToDo:
 -[x] Implement base of bot that works.
--[] Make code cleaner.
--[] Add support of cache for faster response.
--[] Add support of more APIs or ways to scrap.
+- [] Make code cleaner.
+- [] Add support of cache for faster response.
+- [] Add support of more APIs or ways to scrap.
