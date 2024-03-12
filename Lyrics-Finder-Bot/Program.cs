@@ -1,4 +1,6 @@
 ﻿using Lyrics_Finder_Bot.Controllers;
+using Lyrics_Finder_Bot.Logics;
+using System.Net;
 using Telegram.Bot;
 using Telegram.Bot.Exceptions;
 using Telegram.Bot.Polling;
@@ -6,7 +8,13 @@ using Telegram.Bot.SimpleCommandHandler.Logics;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 
-var botClient = new TelegramBotClient("BOT_TOKEN");
+
+WebProxy webProxy = new("socks5://127.0.0.1:2334");
+HttpClient httpClient = new(
+    new HttpClientHandler { Proxy = webProxy, UseProxy = true, }
+);
+
+var botClient = new TelegramBotClient("BOT_TOKEN", httpClient);
 
 using CancellationTokenSource cts = new();
 
@@ -17,7 +25,8 @@ ReceiverOptions receiverOptions = new()
 
 CommandHandler commandHandler = new();
 
-commandHandler.RegisterCommandHandler(command: "/start", parameters: "%s\n%s", handler: MainCommandsController.StartCommand);
+commandHandler.RegisterCommandHandler(command: "/start", handler: MainCommandsController.StartCommand);
+commandHandler.RegisterCommandHandler(command: "/find", parameters: "%s", handler: MainCommandsController.FindCommand);
 
 botClient.StartReceiving(
     updateHandler: commandHandler.Resolve,

@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "Lyrics-Finder-Bot": {
+      "commandName": "Project"
+    },
+    "WSL": {
+      "commandName": "WSL2",
+      "distributionName": ""
+    }
+  }
+}
